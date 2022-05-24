@@ -1,0 +1,76 @@
+<nb-layout>
+    <nb-layout-header fixed style="background-color: darkgray;"><label style="font-size: 25px;">Spotify Artist
+            Search</label>
+    </nb-layout-header>
+    <nb-layout-column style="background-color: white;">
+        <label style="font-size: 25px;">{{artistName}}</label> <br>
+        <label style="color: dimgray; font-size: 16px;">Albums</label>
+        <br>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-3" *ngFor="let album of albumsList">
+                <nb-card style="height: 480px;" class="headings-card">
+
+                    <nb-card-header>
+                        
+                        
+                        <img  src="{{album['albumImage']}}">
+                    
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div class="row" style="margin-bottom: 5px;" >
+                            <div class="col-md-12">
+                                <label><b>{{album['albumName']}}</b></label><br>
+                            </div>
+                        </div>
+                        <div class="row"  style="margin-bottom: 5px;" >
+                            <div class="col-md-12">
+                        <span *ngFor="let item of album['artist_name']; let i=index">
+                            <span *ngIf="i <= 3">{{item['name']}}</span><span class="list-format" *ngIf="i!=album['artist_name'].length-1">&#44;&nbsp;</span>
+                            <span *ngIf="(i > 3) && (i < 5)" class="hellip-format">&hellip;</span>
+                        </span>
+                            </div>
+                            </div>
+                        <!-- <div class="row" style="margin-top: 20px;margin-bottom: 10px;">
+                            <div class="col-md-12">
+                                <p style="font-size: 13px;display: inline-block;" *ngFor="let artist of album['artist_name']">{{artist['name']}} | </p>
+
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p style="font-size: 13px;">
+                                    <nb-icon icon="calendar-outline" pack="eva">
+                                </nb-icon>
+                               {{album['release_date']}}
+                                 </p> 
+                            </div>
+                            <div class="col-md-6">
+                                <p style="font-size: 13px;">
+                                    <nb-icon icon="music-outline" pack="eva">
+                                    </nb-icon>
+                                    {{album['totalTracks']}} tracks </p> 
+                            </div>
+                        </div>
+                      
+               
+
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <p style="font-size: 13px; text-align: center;">
+                           
+                        <a href="{{album['external_urls']}}"  target="_blank" rel="noopener"> <nb-icon icon="eye-outline" pack="eva" style="color: rgb(21, 207, 21);">
+                        </nb-icon>
+                        <span style="color: rgb(107, 104, 104);font-size: 14px; "> Preview on Spotify</span> </a></p>
+                    </nb-card-footer>
+                </nb-card>
+
+            </div>
+
+        </div>
+
+
+
+    </nb-layout-column>
+
+
+</nb-layout>

@@ -1,0 +1,70 @@
+<nb-layout>
+    <nb-layout-header fixed style="background-color: darkgray;"><label style="font-size: 25px;">Spotify Artist
+            Search</label>
+
+        <nb-toggle style="margin-left: 60%;" labelPosition="start" [(checked)]="checked">Search as you type</nb-toggle>
+    </nb-layout-header>
+    <nb-layout-column style="background-color: white;">
+        <div style="text-align:center">
+            <nb-form-field style="position: relative;left: 35%;">
+                <div *ngIf="checked==false;then onenter else onkeyup"></div>
+                <ng-template #onenter>
+                    <input type="text" placeholder="Search for an artist..." (keydown.enter)="search()"
+                        [(ngModel)]="artistSearch" nbInput>
+                </ng-template>
+                <ng-template #onkeyup>
+                    <input type="text" placeholder="Search for an artist..."  (keyup)="searchDelay()"
+                        [(ngModel)]="artistSearch" nbInput>
+                </ng-template>
+
+                <button nbSuffix nbButton ghost>
+                    <nb-icon icon="search" (click)="search()" pack="eva">
+                    </nb-icon>
+                </button>
+            </nb-form-field>
+            <br><br>
+
+
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-3" *ngFor="let art of artists">
+                <nb-card (click)="getArtist(art['name'],art['id'])" style="height: 400px;" class="headings-card" >
+<!-- style="height: 400px;" class="headings-card" -->
+                    <nb-card-header>
+                        <!-- <div class="polaroid">
+                            <img style="width: 230px;border-radius: 20px; text-align: center;vertical-align: middle;
+                            " height="210" src="{{art['image']}}">
+                        </div> -->
+                        <!-- <img style="width: 230px;border-radius: 20px; text-align: center;" height="210" src="{{art['image']}}"> -->
+
+                        <img   src="{{art['image']}}">
+
+                    </nb-card-header>
+                    <nb-card-body>
+                        <label><b>{{art['name']}}</b></label> <br>
+                        <p style="font-size: 13px;">
+                            <nb-icon icon="people-outline" pack="eva">
+                            </nb-icon> &nbsp; {{art['followers']}} followers
+                        </p>
+
+
+                        <ngb-rating [max]="5" [(rate)]="art['popularity']" [readonly]="true"></ngb-rating>
+
+
+                    </nb-card-body>
+                </nb-card>
+
+            </div>
+
+        </div>
+
+
+    </nb-layout-column>
+
+
+</nb-layout>
